@@ -19,4 +19,3 @@ const connectDb = async () => {
 };
 
 module.exports = connectDb;
-//1:33de kaldım
