@@ -14,6 +14,9 @@ const router = express.Router();
 const { upload } = require("../utils/multer");
 const ErrorHandler = require("../utils/ErrorHandler");
 const User = require("../model/userModel");
+const chalk = require("chalk");
+const jwt = require("jsonwebtoken");
+const sendMail = require("../utils/sendMail");
 
 router.post("/create-user", upload.single("file"), async (req, res, next) => {
   try {
@@ -35,6 +38,8 @@ router.post("/create-user", upload.single("file"), async (req, res, next) => {
     const filename = req.file.filename;
     const fileUrl = path.join(filename);
 
+    console.log(chalk.red(fileUrl));
+
     const user = {
       name: name,
       email: email,
@@ -42,14 +47,37 @@ router.post("/create-user", upload.single("file"), async (req, res, next) => {
       avatar: fileUrl,
     };
 
-    const newUser = await User.create(user);
-    res.status(201).json({
-      success: true,
-      newUser,
-    });
+    const activationToken = createActivationToken(user);
+    const activationUrl = `http://localhost:8000/activation/${activationToken}`;
+
+    try {
+      await sendMail({
+        email: user.email,
+        subject: "Please activate your account within 5 minutes",
+        message: `Hello ${user.name}, \n Please click on the link to activate your account : \n ${activationUrl} `,
+      });
+      res.status(201).json({
+        success: true,
+        message: `please check your email address for verificiation - ${user.email}`,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+
+    // const newUser = await User.create(user);
+    // res.status(201).json({
+    //   success: true,
+    //   newUser,
+    // });
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
   }
 });
+
+const createActivationToken = (user) => {
+  return jwt.sign({ user }, process.env.ACTIVATION_SECRET, {
+    expiresIn: "5m",
+  });
+};
 
 module.exports = router;

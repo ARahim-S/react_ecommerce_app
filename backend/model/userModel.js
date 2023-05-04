@@ -60,11 +60,13 @@ const userSchema = new mongoose.Schema({
 
 //  Hash password
 userSchema.pre("save", async function (next) {
-  if (!this.isModifed("password")) {
-    next();
-  }
+  // only run this function if password was actually modified
+  if (!this.isModified("password")) return next();
 
-  this.password = await bcrypt.hash(this.password, 10);
+  // hash the password with cost of 12
+  this.password = await bcrypt.hash(this.password, 12);
+
+  next();
 });
 
 // jwt token
