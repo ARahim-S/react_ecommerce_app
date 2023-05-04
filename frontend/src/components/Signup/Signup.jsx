@@ -15,7 +15,6 @@ const Singup = () => {
   const [avatar, setAvatar] = useState(null);
 
   const handleFileInputChange = (e) => {
-    console.log(e.target.files);
     const file = e.target.files[0];
     setAvatar(file);
   };
