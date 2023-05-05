@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { server } from "../server";
 import { toast } from "react-toastify";
 const ActivationPage = () => {
@@ -15,15 +15,16 @@ const ActivationPage = () => {
             activationToken,
           })
           .then((res) => {
-            toast.success(res.data.message);
+            console.log(res);
           })
           .catch((err) => {
+            toast.error(err.respponse.data.message);
             setError(true);
           });
       };
       sendRequest();
     }
-  }, [activationToken]);
+  }, []);
 
   return (
     <div

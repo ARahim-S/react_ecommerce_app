@@ -6,8 +6,8 @@ const sendToken = (user, code, res) => {
   const cookieOptions = {
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
     httpOnly: true,
-    sameSite: "none",
-    secure: true,
+    //sameSite: "none",
+    //secure: true,
   };
 
   res.cookie("token", token, cookieOptions);
@@ -16,7 +16,6 @@ const sendToken = (user, code, res) => {
     success: true,
     user,
     token,
-    message: "Account verified",
   });
 };
 
