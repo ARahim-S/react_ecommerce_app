@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ARahim-S/react_ecommerce_app#readme",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "chalk": "^4.1.2",
