@@ -18,7 +18,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const User = require("../model/userModel");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
-const sendToken = require("../utils/sendToken");
+const sendToken = require("../utils/jwtToken");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
 router.post("/create-user", upload.single("file"), async (req, res, next) => {
@@ -27,15 +27,20 @@ router.post("/create-user", upload.single("file"), async (req, res, next) => {
     const userEmail = await User.findOne({ email });
 
     if (userEmail) {
-      const filename = req.file.filename;
-      const filePath = `uploads/${filename}`;
-      fs.unlink(filePath, (err) => {
+      fs.unlink(req.file.path, function (err) {
         if (err) {
           console.log(err);
-          res.status(500).json({ message: "Error deleting file" });
         }
+        console.log("Exist user file deleted succesfuly");
       });
-      return next(new ErrorHandler("User already exists", 400));
+
+      next(new ErrorHandler("User already exists", 400));
+
+      res.status(400).json({
+        success: false,
+        message: "User already exists",
+      });
+      return;
     }
 
     const filename = req.file.filename;
@@ -68,6 +73,12 @@ router.post("/create-user", upload.single("file"), async (req, res, next) => {
     return next(new ErrorHandler(error.message, 400));
   }
 });
+
+const createActivationToken = (user) => {
+  return jwt.sign({ user }, process.env.ACTIVATION_SECRET, {
+    expiresIn: "5m",
+  });
+};
 
 //activate user
 router.post(
@@ -106,11 +117,5 @@ router.post(
     }
   })
 );
-
-const createActivationToken = (user) => {
-  return jwt.sign({ user }, process.env.ACTIVATION_SECRET, {
-    expiresIn: "5m",
-  });
-};
 
 module.exports = router;

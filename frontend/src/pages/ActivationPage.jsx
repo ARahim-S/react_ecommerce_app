@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { server } from "../server";
+import { toast } from "react-toastify";
 const ActivationPage = () => {
   const [error, setError] = useState(false);
   const { activationToken } = useParams();
@@ -14,7 +15,7 @@ const ActivationPage = () => {
             activationToken,
           })
           .then((res) => {
-            console.log(res.user);
+            toast.success(res.data.message);
           })
           .catch((err) => {
             setError(true);
@@ -22,7 +23,7 @@ const ActivationPage = () => {
       };
       sendRequest();
     }
-  }, []);
+  }, [activationToken]);
 
   return (
     <div
