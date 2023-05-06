@@ -7,7 +7,7 @@ const Navbar = ({ active }) => {
   return (
     <div className={`${styles.normalFlex}`}>
       {navItems?.map((item, index) => (
-        <div className="flex">
+        <div key={index} className="flex">
           <Link
             to={item.url}
             className={`${

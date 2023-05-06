@@ -101,7 +101,7 @@ const Header = ({ activeHeading }) => {
       </div>
       <div
         className={`${
-          active === true ? "shadow-md fixed top-0 left-0" : null
+          active === true ? "shadow-md fixed top-0 left-0 z-10" : null
         } transition hidden 800px:flex items-center justify-between w-full bg-[#3321c8] h-[70px]`}
       >
         <div
@@ -109,7 +109,10 @@ const Header = ({ activeHeading }) => {
         >
           {/* Categories*/}
           <div>
-            <div className="relative h-[60px] mt-[10px] w-[270px] hidden 1000px:block">
+            <div
+              className="relative h-[60px] mt-[10px] w-[270px] hidden 1000px:block"
+              onClick={() => setDropDown(!dropDown)}
+            >
               <BiMenuAltLeft size={30} className="absolute top-3 left-2" />
               <button className="h-[100%] w-full flex justify-between items-center pl-10 bg-white font-sans text-lg font-[500] select-none rounded-t-md ">
                 All categories
