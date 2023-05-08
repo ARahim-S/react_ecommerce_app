@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../../styles/styles";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
+import {
+  AiFillHeart,
+  AiFillStar,
+  AiOutlineStar,
+  AiOutlineHeart,
+  AiOutlineEye,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 
 const ProductCard = ({ data }) => {
   const [open, setOpen] = useState(false);
+  const [click, setClick] = useState(false);
   const d = data.name;
   const product_name = d.replace(/\s+/g, "-");
 
@@ -67,6 +76,41 @@ const ProductCard = ({ data }) => {
             </span>
           </div>
         </Link>
+        <div>
+          {/* side options */}
+          {click ? (
+            <AiFillHeart
+              size={22}
+              className="absolute cursor-pointer right-2 top-5"
+              title="Remove from watchlist"
+              color={click ? "red" : "#333"}
+              onClick={() => setClick(!click)}
+            />
+          ) : (
+            <AiOutlineHeart
+              size={22}
+              className="absolute cursor-pointer right-2 top-5"
+              title="Add to the watchlist"
+              color={click ? "red" : "#333"}
+              onClick={() => setClick(!click)}
+            />
+          )}
+          <AiOutlineEye
+            size={22}
+            className="cursor-pointer absolute right-2 top-14"
+            color="#333"
+            title="Quick view"
+            onClick={() => setOpen(!open)}
+          />
+          <AiOutlineShoppingCart
+            size={25}
+            className="cursor-pointer absolute top-24 right-2"
+            onClick={() => setOpen(!open)}
+            title="Add to cart"
+            color="#444"
+          />
+          {open ? <ProductDetailsCard data={data} setOpen={setOpen} /> : null}
+        </div>
       </div>
     </>
   );
