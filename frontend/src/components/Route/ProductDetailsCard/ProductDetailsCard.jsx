@@ -179,3 +179,5 @@ const ProductDetailsCard = ({ setOpen, data }) => {
 };
 
 export default ProductDetailsCard;
+//6:12
+//https://www.youtube.com/watch?v=XxnUSZOgMLY&list=PLyah27R0n8V4Kcao94Qlt-xJ0bHxZfBjk
