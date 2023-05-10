@@ -3,8 +3,8 @@ import styles from "../../styles/styles";
 
 const DropDown = ({ categoriesData, setDropDown }) => {
   const navigate = useNavigate();
-  const submitHandle = (i) => {
-    navigate(`/product?category=${i.title}`);
+  const submitHandle = (item) => {
+    navigate(`/products?category=${item.title}`);
     setDropDown(false);
     window.location.reload();
   };
@@ -15,7 +15,7 @@ const DropDown = ({ categoriesData, setDropDown }) => {
         <div
           key={index}
           className={`${styles.normalFlex}`}
-          onclick={submitHandle}
+          onClick={() => submitHandle(item)}
         >
           <img
             src={item.image_Url}
