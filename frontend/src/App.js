@@ -4,6 +4,7 @@ import {
   SignupPage,
   ActivationPage,
   HomePage,
+  ProductsPage,
 } from "./routes/Routes.js";
 import { useEffect } from "react";
 import "./App.css";
@@ -28,6 +29,7 @@ const App = () => {
             path="/activation/:activationToken"
             element={<ActivationPage />}
           />
+          <Route path="/products" element={<ProductsPage />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />
