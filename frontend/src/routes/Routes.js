@@ -3,4 +3,14 @@ import SignupPage from "../pages/Signup";
 import ActivationPage from "../pages/ActivationPage";
 import HomePage from "../pages/HomePage";
 import ProductsPage from "../pages/ProductsPage";
-export { LoginPage, SignupPage, ActivationPage, HomePage, ProductsPage };
+import BestSellingPage from "../pages/BestSellingPage";
+import EventsPage from "../pages/EventsPage";
+export {
+  LoginPage,
+  SignupPage,
+  ActivationPage,
+  HomePage,
+  ProductsPage,
+  BestSellingPage,
+  EventsPage,
+};

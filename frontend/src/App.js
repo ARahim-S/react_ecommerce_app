@@ -5,6 +5,8 @@ import {
   ActivationPage,
   HomePage,
   ProductsPage,
+  BestSellingPage,
+  EventsPage,
 } from "./routes/Routes.js";
 import { useEffect } from "react";
 import "./App.css";
@@ -30,6 +32,8 @@ const App = () => {
             element={<ActivationPage />}
           />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/best-selling" element={<BestSellingPage />} />
+          <Route path="/events" element={<EventsPage />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />
