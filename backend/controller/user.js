@@ -131,10 +131,8 @@ router.post(
       }
 
       const user = await User.findOne({ email }).select("+password");
-      console.log(user);
 
       if (!user) {
-        console.log("a");
         return next(new ErrorHandler("User doesn't exists!", 400));
       }
 
@@ -161,6 +159,7 @@ router.get(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const user = await User.findById(req.user.id);
+      console.log(user);
       if (!user) {
         return next(new ErrorHandler("User doesn't exist", 400));
       }

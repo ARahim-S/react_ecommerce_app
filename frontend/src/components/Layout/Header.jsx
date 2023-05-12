@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
 import { categoriesData, productData } from "../../static/data";
+import { useSelector } from "react-redux";
 import {
   AiOutlineHeart,
   AiOutlineSearch,
@@ -13,8 +14,10 @@ import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
+import { backend_url } from "../../server";
 
 const Header = ({ activeHeading }) => {
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [active, setActive] = useState(false);
@@ -156,9 +159,19 @@ const Header = ({ activeHeading }) => {
             </div>
             <div className={`${styles.normalFlex}`}>
               <div className="relative cursor-pointer mr-[15px]">
-                <Link to={"/login"}>
-                  <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
-                </Link>
+                {isAuthenticated ? (
+                  <Link to={"/profile"}>
+                    <img
+                      src={`${backend_url}${user?.avatar}`}
+                      className="w-[35px] h-[35px] rounded-full"
+                      alt=""
+                    />{" "}
+                  </Link>
+                ) : (
+                  <Link to={"/login"}>
+                    <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
+                  </Link>
+                )}
               </div>
             </div>
           </div>

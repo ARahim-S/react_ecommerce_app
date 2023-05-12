@@ -62,13 +62,12 @@ Bu middleware, fileupload adlı Node.js modülü kullanılarak oluşturulur. use
 req.files nesnesi, yüklenen dosyaların bilgilerini içeren bir JavaScript nesnesidir. Bu nesne, dosyaların isimleri, boyutları, MIME türleri gibi bilgileri içerir. Bu nesneye, fileUpload() middleware fonksiyonunu kullanan Express.js uygulamasındaki istek işleyicileri tarafından erişilebilir.
 */
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-    optionSuccessStatus: 200,
-  })
-);
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 //config
 if (process.env.NODE_ENV !== "PRODUCTION") {
