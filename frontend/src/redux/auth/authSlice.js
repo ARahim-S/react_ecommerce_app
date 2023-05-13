@@ -9,7 +9,6 @@ const initialState = {
   isError: false,
   isLoading: false,
   isSuccess: false,
-  message: "",
 };
 
 //Register User
@@ -89,13 +88,11 @@ export const autSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.user = null;
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
@@ -103,15 +100,13 @@ export const autSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
-        state.isAuthenticated = false;
+        state.isAuthenticated = true;
         state.isError = false;
         state.message = "";
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.user = null;
         state.message = action.payload;
         state.isAuthenticated = false;
         state.isSuccess = false;
@@ -122,6 +117,7 @@ export const autSlice = createSlice({
       .addCase(loadUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
+        state.isSuccess = true;
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.isLoading = false;
