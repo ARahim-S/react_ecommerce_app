@@ -15,6 +15,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { backend_url } from "../../server";
+import Cart from "../Cart/Cart";
 
 const Header = ({ activeHeading }) => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
@@ -22,6 +23,8 @@ const Header = ({ activeHeading }) => {
   const [searchData, setSearchData] = useState([]);
   const [active, setActive] = useState(false);
   const [dropDown, setDropDown] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
+  const [openWishList, setOpenWishList] = useState(false);
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
@@ -174,6 +177,10 @@ const Header = ({ activeHeading }) => {
                 )}
               </div>
             </div>
+            {
+              /* cart popup */
+              openCart ? <Cart setOpenCart={setOpenCart} /> : null
+            }
           </div>
         </div>
       </div>
